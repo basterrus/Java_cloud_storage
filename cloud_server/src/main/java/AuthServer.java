@@ -5,9 +5,9 @@ public class AuthServer {
 
     private static Map<String, String> loginMap = new HashMap<>();
     static {
-        loginMap.put("roman","pass");
-        loginMap.put("puttor","pass");
-        loginMap.put("gitter","pass");
+        loginMap.put("user","Qwer1234");
+        loginMap.put("putin","Qwer1234");
+        loginMap.put("gitler","Qwer1234");
     }
 
     public boolean authSuccess(String login, String password){
