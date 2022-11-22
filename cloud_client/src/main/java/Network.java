@@ -1,4 +1,6 @@
-import callback.Callback;
+package src.main.java;
+
+import src.main.java.callback.Callback;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;

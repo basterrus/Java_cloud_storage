@@ -1,3 +1,5 @@
+package src.main.java;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -34,30 +36,25 @@ public class Delete_Client {
             String fileName = null;
             String dirFilename = null;
             while (true){
-                System.out.println("Введите команду:");
-                System.out.println("Загрузить файл с облака в папку:/download");
-                System.out.println("Загрузить файл в облако:/upload");
-                System.out.println("Запросить список файлов:/all");
-                System.out.println("Завершить программу:/end");
+                System.out.println("Enter command");
+                System.out.println("Download the file from the cloud to the folder: /download");
+                System.out.println("Upload a file to the cloud: /upload");
+                System.out.println("Request a list of files: /all");
+                System.out.println("End program: /end");
                 String temp = readConsole.readLine();
 
                 if(temp.equals("/download")){
-                    //отправить команду на сервер
-                    //out.writeUTF(temp);
                     out.write(temp.getBytes());
 
-                    System.out.println("Введите имя файла:");
+                    System.out.println("Enter file name:");
                     fileName = readConsole.readLine();
-                    //отправить имя файл, который нужно скачать
-                    //out.writeUTF(fileName);
                     out.write(fileName.getBytes());
 
-                    System.out.println("Введите имя директории, куда поместить файл:");
+                    System.out.println("Enter the name of the directory where to place the file:");
                     dirFilename = readConsole.readLine();
 
                     long fileSize = in.readLong();
                     System.out.println(fileSize);
-                    //получаем файл и грузим в директорию
                     File dirFile = FileUtility.createDirectory(dirFilename);
                     File loadFile = FileUtility.createFile(dirFile.getAbsolutePath()+"/"+fileName);
                     try (FileOutputStream inFile = new FileOutputStream(loadFile)){
@@ -71,26 +68,23 @@ public class Delete_Client {
                         }
                         inFile.flush();
                     }catch (IOException e){
-                        System.out.println("Ошибка загрузки файла");
+                        System.out.println("File upload error");
                         e.printStackTrace();
                     }
 
-                    System.out.println("Загрузка завершена");
+                    System.out.println("Download complete");
 
                 }else if(temp.equals("/upload")){
-                    //отправить команду на сервер
                     out.writeUTF(temp);
 
-                    System.out.println("Введите полное имя файла:");
+                    System.out.println("Enter full filename:");
                     fileName = readConsole.readLine();
                     File sendFile = FileUtility.createFile(fileName);
-                    //отправить имя файла на сервер
                     out.writeUTF(sendFile.getName());
 
                     long fileSize = sendFile.length();
                     out.writeLong(fileSize);
 
-                    //выгружаем файл в сокет
                     try(FileInputStream outFile = new FileInputStream(sendFile)){
                         byte[] bufferOut = new byte[8192];
                         long getCount = 0l;
@@ -102,19 +96,16 @@ public class Delete_Client {
                         }
                         out.flush();
                     }catch (IOException e){
-                        System.out.println("Ошибка выгрузки файла");
+                        System.out.println("File upload error");
                         e.printStackTrace();
                     }
-                    System.out.println("Выгрузка завершена");
+                    System.out.println("Upload complete");
 
                 }else if(temp.equals("/all")){
-                    //отправить команду на сервер
                     out.writeUTF(temp);
 
-                    //получаем ответ
                     System.out.println("Список файлов");
                     while (true){
-                        //выводим многострочный список
                         String fileTemp = in.readUTF();
                         if(fileTemp.equals("/end_list")) break;
                         System.out.println("  " + fileTemp);
@@ -123,7 +114,6 @@ public class Delete_Client {
 
 
                 }else if(temp.equals("/end")){
-                    //закрытие
                     System.out.println("Bye bye");
                     break;
                 }

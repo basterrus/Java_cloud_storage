@@ -14,7 +14,7 @@ public class Server {
             try {
                 port = Integer.parseInt(args[0]);
             }catch (Exception e){
-                System.out.println("Некорректный формат порта, будет использоваться порт по умолчанию");
+                System.out.println("Invalid port format, default port will be used");
             }
         }
 
@@ -22,7 +22,7 @@ public class Server {
             try {
                 rootFolder = args[1];
             }catch (Exception e){
-                System.out.println("Некорректный формат папки, будет использоваться папка по умолчанию");
+                System.out.println("Incorrect folder format, default folder will be used");
             }
         }
 

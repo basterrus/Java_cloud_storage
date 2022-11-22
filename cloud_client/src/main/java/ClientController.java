@@ -1,3 +1,5 @@
+package src.main.java;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 import javafx.application.Platform;
@@ -68,7 +70,7 @@ public class ClientController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Success");
                 alert.setHeaderText(null);
-                alert.setContentText("Клиент авторизован");
+                alert.setContentText("Client authorized");
                 alert.showAndWait();
                 loginPane.setManaged(false);
                 loginPane.setVisible(false);
@@ -103,9 +105,9 @@ public class ClientController implements Initializable {
         String password = passText.getText().trim();
         if (login.isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Внимание");
+            alert.setTitle("Attention");
             alert.setHeaderText(null);
-            alert.setContentText("Не заполнен логин");
+            alert.setContentText("Login not filled");
             alert.showAndWait();
             return;
         }
@@ -133,7 +135,6 @@ public class ClientController implements Initializable {
 
         String downLoadFile = listServerFiles.getSelectionModel().getSelectedItem();
 
-        //команда
         ByteBuf buff = null;
         byte command = Command.DOWNLOAD_FILE.getCommandCode();
         byte[] fileNameBytes = downLoadFile.getBytes(StandardCharsets.UTF_8);
@@ -152,9 +153,9 @@ public class ClientController implements Initializable {
 
         if (!Files.exists(uploadFile)) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Внимание");
+            alert.setTitle("Attention");
             alert.setHeaderText(null);
-            alert.setContentText("Файл не найден");
+            alert.setContentText("File not found!");
             alert.showAndWait();
             return;
         }
@@ -165,14 +166,13 @@ public class ClientController implements Initializable {
             currentFileLength = Files.size(uploadFile);
         } catch (IOException e) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Внимание");
+            alert.setTitle("Attention");
             alert.setHeaderText(null);
-            alert.setContentText("Ошибка определения размера файла");
+            alert.setContentText("File size detection error");
             alert.showAndWait();
             return;
         }
 
-        //команда
         ByteBuf buff = null;
         byte command = Command.UPLOAD_FILE_PROCESS.getCommandCode();
         byte[] fileNameBytes = uploadFile.getFileName().toString().getBytes(StandardCharsets.UTF_8);
@@ -213,9 +213,9 @@ public class ClientController implements Initializable {
             aFile.close();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Внимание");
+            alert.setTitle("Attention");
             alert.setHeaderText(null);
-            alert.setContentText("Файл отправлен");
+            alert.setContentText("File Send");
             alert.showAndWait();
             return;
         } catch (IOException e) {

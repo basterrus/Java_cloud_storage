@@ -1,6 +1,7 @@
-import callback.Callback;
+package src.main.java;
+
+import src.main.java.callback.Callback;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
@@ -40,7 +41,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf buf = ((ByteBuf) msg);
         while (buf.readableBytes() > 0) {
-            //определение входящей команды
             if (currentStage == JobStage.STANDBY) {
                 currentCommand = CommandUtility.getCommand(buf.readByte());
 
